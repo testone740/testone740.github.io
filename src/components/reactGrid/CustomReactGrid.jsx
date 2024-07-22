@@ -4,7 +4,7 @@ import '@silevis/reactgrid/styles.css';
 import { CellTemplates } from './cells';
 
 const departmentOptions = [
-  { label: 'None', value: undefined },
+  { label: '', value: '' },
   { label: 'HR', value: 'hr' },
   { label: 'Sales', value: 'sales' },
   { label: 'Marketing', value: 'marketing' },
@@ -27,7 +27,7 @@ const getEmployees = () => [
     dept: 'sales',
     hiredAt: new Date('10-15-2020'),
   },
-  { id: '', fName: '', lName: '', dept: undefined, hiredAt: '' },
+  { id: '', fName: '', lName: '', dept: '', hiredAt: '' },
 ];
 
 const getColumns = () => [
@@ -45,7 +45,7 @@ const headerRow = {
     { type: 'header', text: 'First Name' },
     { type: 'header', text: 'Last Name' },
     { type: 'header', text: 'Department' },
-    { type: 'header', text: 'Hire Date' },
+    { type: 'header', text: 'Hired Date' },
   ],
 };
 
@@ -72,12 +72,11 @@ const getRows = (items) => [
 ];
 
 const applyCellChanges = (changes, prevRows) => {
-  // console.log('changes', changes);
+  console.log('changes', changes);
   // console.log('prevRows', prevRows);
 
   changes.forEach((change) => {
     const { rowId, columnId, previousCell, newCell } = change;
-
     if (newCell.type === 'number') {
       prevRows[rowId][columnId] = newCell.value;
     }
@@ -89,10 +88,7 @@ const applyCellChanges = (changes, prevRows) => {
     }
     if (change.type === 'dropdown' && change.columnId === 'dept') {
       prevRows[rowId].isOpen = newCell.isOpen;
-      if (
-        newCell.selectedValue &&
-        newCell.selectedValue !== previousCell.selectedValue
-      ) {
+      if (newCell.selectedValue !== previousCell.selectedValue) {
         prevRows[rowId].dept = newCell.selectedValue;
       }
     }
@@ -103,7 +99,6 @@ const applyCellChanges = (changes, prevRows) => {
 
 const CustomReactGrid = () => {
   const [employees, setEmployees] = useState(getEmployees());
-  // console.log('employees', employees);
 
   const [columns] = useState(getColumns());
   const rows = getRows(employees);
@@ -148,6 +143,7 @@ const CustomReactGrid = () => {
         customCellTemplates={CellTemplates}
         onCellsChanged={handleChanges}
         onContextMenu={handleContextMenu}
+        enableColumnSelection
         enableRowSelection
         enableRangeSelection
         enableFillHandle
