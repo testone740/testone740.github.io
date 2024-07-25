@@ -4,7 +4,7 @@ import '@silevis/reactgrid/styles.css';
 import { CellTemplates } from './cells';
 
 const departmentOptions = [
-  { label: '', value: '' },
+  { label: '---', value: '' },
   { label: 'HR', value: 'hr' },
   { label: 'Sales', value: 'sales' },
   { label: 'Marketing', value: 'marketing' },
@@ -14,26 +14,23 @@ const departmentOptions = [
 
 const getEmployees = () => [
   {
-    id: 11,
-    fName: 'Thomas',
-    lName: 'Brown',
+    empId: 11,
+    empName: 'Thomas',
     dept: 'hr',
     hiredAt: new Date('01/01/2020'),
   },
   {
-    id: 12,
-    fName: 'Susie',
-    lName: 'Lane',
+    empId: 12,
+    empName: 'Susie',
     dept: 'sales',
     hiredAt: new Date('10-15-2020'),
   },
-  { id: '', fName: '', lName: '', dept: '', hiredAt: '' },
+  { empId: '', empName: '', dept: '', hiredAt: '' },
 ];
 
 const getColumns = () => [
-  { columnId: 'id', width: 100 },
-  { columnId: 'fName', width: 150 },
-  { columnId: 'lName', width: 150 },
+  { columnId: 'empId', width: 100 },
+  { columnId: 'empName', width: 150 },
   { columnId: 'dept', width: 150 },
   { columnId: 'hiredAt', width: 150 },
 ];
@@ -42,8 +39,7 @@ const headerRow = {
   rowId: 'header',
   cells: [
     { type: 'header', text: 'Emp. ID' },
-    { type: 'header', text: 'First Name' },
-    { type: 'header', text: 'Last Name' },
+    { type: 'header', text: 'Emp. Name' },
     { type: 'header', text: 'Department' },
     { type: 'header', text: 'Hired Date' },
   ],
@@ -56,9 +52,8 @@ const getRows = (items) => [
     return {
       rowId: idx,
       cells: [
-        { type: 'number', value: item.id },
-        { type: 'text', text: item.fName },
-        { type: 'text', text: item.lName },
+        { type: 'number', value: item.empId },
+        { type: 'text', text: item.empName },
         {
           type: 'dropdown',
           values: departmentOptions,
@@ -76,20 +71,20 @@ const applyCellChanges = (changes, prevRows) => {
   // console.log('prevRows', prevRows);
 
   changes.forEach((change) => {
-    const { rowId, columnId, previousCell, newCell } = change;
-    if (newCell.type === 'number') {
+    const { rowId, columnId, previousCell, newCell, type } = change;
+    if (type === 'number') {
       prevRows[rowId][columnId] = newCell.value;
     }
-    if (newCell.type === 'text') {
+    if (type === 'text') {
       prevRows[rowId][columnId] = newCell.text;
     }
-    if (newCell.type === 'date') {
+    if (type === 'date') {
       prevRows[rowId][columnId] = new Date(newCell.value);
     }
-    if (change.type === 'dropdown' && change.columnId === 'dept') {
+    if (type === 'dropdown') {
       prevRows[rowId].isOpen = newCell.isOpen;
       if (newCell.selectedValue !== previousCell.selectedValue) {
-        prevRows[rowId].dept = newCell.selectedValue;
+        prevRows[rowId][columnId] = newCell.selectedValue;
       }
     }
   });
@@ -117,7 +112,7 @@ const CustomReactGrid = () => {
       menuOptions = [
         ...menuOptions,
         {
-          id: 'removePerson',
+          empId: 'removePerson',
           label: 'Remove person',
           handler: () => {
             setEmployees((prevPeople) => {
