@@ -6,8 +6,8 @@ import FormLinearStepper from '../form/FormLinearStepper';
 import FormLinearStepperV2 from '../form/FormLinearStepperV2';
 import FormLinearStepperV2b from '../form/FormLinearStepperV2b';
 import CustomizedSteppers from '../form/CustomizedSteppers';
-import FormNonLinearStepper from '../form/FormNonLinearStepper';
-import HorizontalNonLinearStepper from '../form/HorizontalNonLinearStepper';
+import StepperWithColor from '../form/StepperWithColor';
+import AntDesignGrid from '../muiTable/AntDesignGrid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -30,10 +30,10 @@ const MuiGridLayout = () => {
             <FormLinearStepperV2 />
           </Grid> */}
           <Grid item xs={12}>
-            <FormLinearStepperV2b />
+            <AntDesignGrid />
           </Grid>
           <Grid item xs={12}>
-            <CustomizedSteppers />
+            <StepperWithColor />
           </Grid>
         </Grid>
       </Box>

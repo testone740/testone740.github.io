@@ -40,9 +40,14 @@ const FormLinearStepperV2 = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stepper activeStep={activeStep} orientation="horizontal" nonLinear>
-        <Step key="step1" completed={false}>
-          <StepLabel>Select a category</StepLabel>
+      <Stepper
+        activeStep={activeStep}
+        orientation="horizontal"
+        nonLinear
+        sx={{ color: 'red' }}
+      >
+        <Step key="step1" completed={false} sx={{ color: 'red' }}>
+          <StepLabel sx={{ color: 'red' }}>Select a category 123</StepLabel>
           <Box sx={{ mt: 1 }}>
             <Controller
               name="category"
