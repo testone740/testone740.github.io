@@ -16,7 +16,7 @@
     "@mui/material": "^5.16.7",
     "@mui/x-data-grid": "^7.13.0",
     "@mui/x-data-grid-generator": "^7.13.0",
-    "@silevis/reactgrid": "^4.1.6",
+    "@silevis/reactgrid": "^5.0.0-alpha.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
